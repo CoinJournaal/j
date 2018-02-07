@@ -17,7 +17,7 @@ app.get("/sayHello", function (request, response) {
 app.listen(port);
 console.log("Listening on port ", port);
 
-translate('The European Central Bank has moderated its stance on cryptocurrency regulation Wednesday, Feb. 7, describing it as "Not exactly very high on its to-do list" in a brief interview with CNBC. The ECB\'s Chair of the Supervisory Board Daniele Nouy added that although she had "No clue" whether new regulatory moves on crypto would come from Europe in the future, involvement of ECB-regulated banks in the sphere was "Very, very low".', {from: 'en', to: 'nl'}).then(res => {
+translate('This is a test', {from: 'en', to: 'nl'}).then(res => {
     console.log(res.text);
     //=> Ik spreek Nederlands!
     console.log(res.from.text.autoCorrected);
