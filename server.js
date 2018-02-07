@@ -32,7 +32,7 @@ translate('This is a test', {from: 'en', to: 'nl'}).then(res => {
     console.error(err);
 });
 
-function postArticle(postingKey, title, permlink, article, tag1, tag2)
+var postArticle = function (postingKey, title, permlink, article, tag1, tag2)
 {
   steem.broadcast.comment(
     postingKey, // posting wif
