@@ -3,7 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 const translate = require('google-translate-api');
 var steem = require('steem');
-var http = require('request');
+var http = require('http');
 
 var port = process.env.PORT || 5000;
 
