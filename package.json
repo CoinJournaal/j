@@ -9,7 +9,8 @@
     "request": "latest",
     "google-translate-api": "latest",
     "steem": "0.6.4",
-    "https": "latest"
+    "https": "latest",
+    "google": "latest"
   },
   "main": "server.js",
   "scripts": {
