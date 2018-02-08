@@ -47,10 +47,10 @@ app.get("/cp", function (request, response) {
             console.log("Got a response: ", cpResponse.count);
             
             
-            var keysArray = Object.keys(cpResponse);
+            var keysArray = Object.keys(cpResponse.results);
             for (var i = 0; i < 5; i++) {
                var key = keysArray[i]; // here is "name" of object property
-               var value = cpResponse[key]; // here get value "by name" as it expected with objects
+               var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
                console.log(key, value);
             }
             
