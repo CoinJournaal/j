@@ -1,3 +1,5 @@
+// TODO filter reddit, write to file
+
 var express = require("express"),
     app = express();
 var fs = require("fs");
