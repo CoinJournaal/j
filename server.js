@@ -57,11 +57,11 @@ app.get("/cp", function (request, response) {
             for (var i = 0; i < 5; i++) {
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
-               //console.log(key, value);
+               console.log(key, value);
                 
                 var keysArray2 = Object.keys(value);
-                var domainKey = keysArray2[0];
-                var titleKey = keysArray2[3];
+                var domainKey = keysArray2[Object.keys('domain')];
+                var titleKey = keysArray2[Object.keys('title')];
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + i + " "+ value[titleKey]);
                 
