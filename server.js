@@ -1,4 +1,4 @@
-// TODO filter reddit, write to file
+// TODO write to file
 
 var express = require("express"),
     app = express();
@@ -54,7 +54,7 @@ app.get("/cp", function (request, response) {
             
             
             var keysArray = Object.keys(cpResponse.results);
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < 5; i++) {
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
                //console.log(key, value);
@@ -65,7 +65,7 @@ app.get("/cp", function (request, response) {
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + i + " "+ value[titleKey]);
                 
-                if(value[domainKey].indexOf("reddit") == -1) { // filter Reddit posts
+                if(value[domainKey].indexOf("reddit") == -1 && value[domainKey].indexOf("twitter")) { // filter Reddit/Twitter posts
                     console.log("niet gefilterd");
                     title.push(value[titleKey]);
                     google.resultsPerPage = 5;
@@ -132,11 +132,12 @@ app.get("/cp", function (request, response) {
                     });
                 }
                 else {
-                    console.log("Filtered Reddit Post");
+                    console.log("Filtered Reddit/Twitter Post");
                 }
             }
             
         });
+        
     }).on('error', function(e){
           console.log("Got an error: ", e);
     });
