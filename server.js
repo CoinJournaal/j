@@ -58,8 +58,8 @@ app.get("/cp", function (request, response) {
                 var keysArray2 = Object.keys(value);
                 var domainKey = keysArray2[0];
                 var titleKey = keysArray2[3];
-                console.log("Domain " + value[domainKey]);
-                console.log("Title " + value[titleKey]);
+               // console.log("Domain " + value[domainKey]);
+               // console.log("Title " + value[titleKey]);
                 
                 google.resultsPerPage = 5;
                 google.timeSpan = 'd'; // information indexed in the past day 
@@ -71,9 +71,9 @@ app.get("/cp", function (request, response) {
                     var link = res.links[j];
                     if(link.title.indexOf("News for") !== 0) {
                         console.log(" ");
-                        console.log("Title " + link.title);
+                        console.log("Title " + value[titleKey]);
                         console.log("HREF " + link.href);
-                        console.log("Link " + link.link);
+                        //console.log("Link " + link.link);
                         break;
                         /* console.log(link.title + ' - ' + link.href)
                         console.log(link.description + "\n")
