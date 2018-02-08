@@ -4,6 +4,7 @@ var fs = require("fs");
 const translate = require('google-translate-api');
 var steem = require('steem');
 var https = require('https');
+var google = require('google');
 
 var port = process.env.PORT || 5000;
 
@@ -58,6 +59,18 @@ app.get("/cp", function (request, response) {
                 var titleKey = keysArray2[3];
                 console.log("Domain " + value[domainKey]);
                 console.log("Title " + value[titleKey]);
+                
+                google.resultsPerPage = 1
+                
+                google(value[domainKey] + ' ' + value[titleKey], function (err, res){
+                  if (err) console.error(err)
+
+                  for (var i = 0; i < res.links.length; ++i) {
+                    var link = res.links[i];
+                    console.log(link.title + ' - ' + link.href)
+                    console.log(link.description + "\n")
+                  }
+                });
             }
             
         });
