@@ -74,6 +74,27 @@ app.get("/cp", function (request, response) {
                         console.log("Title " + value[titleKey]);
                         console.log("HREF " + link.href);
                         //console.log("Link " + link.link);
+                        
+                        https.get('http://api.smmry.com/&SM_API_KEY=0431DECC57&SM_LENGTH=1&SM_URL='+link.href, function(res){
+                            var body = '';
+
+                            res.on('data', function(chunk){
+                                body += chunk;
+                            });
+
+                            res.on('end', function(){
+                                var smmryResponse = JSON.parse(body);
+                                console.log(smmryResponse);
+                                var keysArray3 = Object.keys(smmryResponse);
+                                  for(var k = 0; k < keysArray3.length; ++k) {
+                                      var key2 = keysArray3[k];
+                                      var value2 = smmryResponse[key2];
+                                    console.log(key2, value2);
+                                  }
+                            });
+                        });
+                            
+                        
                         break;
                         /* console.log(link.title + ' - ' + link.href)
                         console.log(link.description + "\n")
@@ -84,6 +105,7 @@ app.get("/cp", function (request, response) {
                               var value2 = link[key2];
                             console.log(key2, value2);
                           }*/
+                        
                     }
                   }
                 });
