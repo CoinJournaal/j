@@ -8,7 +8,8 @@
     "fs":"latest",
     "request": "latest",
     "google-translate-api": "latest",
-    "steem": "0.6.4"
+    "steem": "0.6.4",
+    "http": "latest"
   },
   "main": "server.js",
   "scripts": {
