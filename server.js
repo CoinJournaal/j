@@ -33,7 +33,7 @@ app.get("/tl", function (request, response) {
 });
 
 app.get("/cp", function (request, response) {
-    var url = 'https://www.cryptopanic.com/api/posts/?auth_token=31dc4817cba448911e694b5c2437c5215c6fbaaf&filter=bullish';
+    var url = 'https://cryptopanic.com/api/posts/?auth_token=31dc4817cba448911e694b5c2437c5215c6fbaaf&filter=bullish';
 
     https.get(url, function(res){
         var body = '';
