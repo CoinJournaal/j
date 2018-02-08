@@ -70,9 +70,9 @@ app.get("/cp", function (request, response) {
                     google.resultsPerPage = 5;
                     google.timeSpan = 'd'; // information indexed in the past day 
                     
-                    google.titles = title;
+                    google.number = i;
 
-                    google(value[domainKey] + ' ' + value[titleKey], (function (err, res, title){
+                    google(value[domainKey] + ' ' + value[titleKey], function (err, res){
                       if (err) console.error(err)
 
                       for (var j = 0; j < res.links.length; ++j) {
@@ -83,9 +83,12 @@ app.get("/cp", function (request, response) {
                             console.log("HREF " + link.href);
                             //console.log("Link " + link.link);
                             
+                            http.number = google.number;                            
                             
                             http.get('http://api.smmry.com/&SM_API_KEY='+request.query.smmrytoken+'&SM_LENGTH=1&SM_URL='+link.href, function(res){
                                 var body = '';
+                                
+                                res.number = http.number;
 
                                 res.on('data', function(chunk){
                                     body += chunk;
@@ -93,9 +96,10 @@ app.get("/cp", function (request, response) {
 
                                 res.on('end', function(){
                                     var smmryResponse = JSON.parse(body);
+                                    console.log(title[res.number]);
                                     console.log(smmryResponse.sm_api_title);
                                     console.log(smmryResponse.sm_api_content);
-                                    smmryResponse.sm_api_content;
+                               
                                     /*var keysArray3 = Object.keys(smmryResponse);
                                       for(var k = 0; k < keysArray3.length; ++k) {
                                           var key2 = keysArray3[k];
@@ -119,7 +123,7 @@ app.get("/cp", function (request, response) {
 
                         }
                       }
-                    })(err,res,value[titleKey]));
+                    });
                 }
                 else {
                     console.log("Filtered Reddit Post");
