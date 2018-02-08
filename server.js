@@ -37,10 +37,12 @@ app.get("/tl", function (request, response) {
 });
 
 app.get("/cp", function (request, response) {
-    var url = 'https://cryptopanic.com/api/posts/?auth_token=31dc4817cba448911e694b5c2437c5215c6fbaaf&filter=bullish';
+    var url = 'https://cryptopanic.com/api/posts/?auth_token='+ request.query.cptoken +'&filter=bullish';
 
     https.get(url, function(res){
         var body = '';
+        
+        var title = new Array();
 
         res.on('data', function(chunk){
             body += chunk;
@@ -53,7 +55,6 @@ app.get("/cp", function (request, response) {
             
             var keysArray = Object.keys(cpResponse.results);
             for (var i = 0; i < 3; i++) {
-                console.log(" ");
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
                //console.log(key, value);
@@ -64,55 +65,60 @@ app.get("/cp", function (request, response) {
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + value[titleKey]);
                 
-                google.resultsPerPage = 5;
-                google.timeSpan = 'd'; // information indexed in the past day 
-                
-                google(value[domainKey] + ' ' + value[titleKey], function (err, res){
-                  if (err) console.error(err)
+                if(value[domainKey].indexOf("reddit") !== -1) { // filter Reddit posts
+                    title.push(value[titleKey]);
+                    google.resultsPerPage = 5;
+                    google.timeSpan = 'd'; // information indexed in the past day 
 
-                  for (var j = 0; j < res.links.length; ++j) {
-                    var link = res.links[j];
-                    if(link.title.indexOf("News for") !== 0) {
-                        console.log(" ");
-                        //console.log("Title " + value[titleKey]);
-                        console.log("HREF " + link.href);
-                        //console.log("Link " + link.link);
-                        
-                        http.get('http://api.smmry.com/&SM_API_KEY=0431DECC57&SM_LENGTH=1&SM_URL='+link.href, function(res){
-                            var body = '';
+                    google(value[domainKey] + ' ' + value[titleKey], (function (err, res, title){
+                      if (err) console.error(err)
 
-                            res.on('data', function(chunk){
-                                body += chunk;
-                            });
-
-                            res.on('end', function(){
-                                var smmryResponse = JSON.parse(body);
-                                console.log(smmryResponse.sm_api_title);
-                                console.log(smmryResponse.sm_api_content);
-                                /*var keysArray3 = Object.keys(smmryResponse);
-                                  for(var k = 0; k < keysArray3.length; ++k) {
-                                      var key2 = keysArray3[k];
-                                      var value2 = smmryResponse[key2];
-                                    console.log(key2, value2);
-                                  }*/
-                            });
-                        });
+                      for (var j = 0; j < res.links.length; ++j) {
+                        var link = res.links[j];
+                        if(link.title.indexOf("News for") !== 0) { // filter News for items without links
+                            console.log(" ");
+                            //console.log("Title " + value[titleKey]);
+                            console.log("HREF " + link.href);
+                            //console.log("Link " + link.link);
                             
-                        
-                        break;
-                        /* console.log(link.title + ' - ' + link.href)
-                        console.log(link.description + "\n")
+                            
+                            http.get('http://api.smmry.com/&SM_API_KEY='+request.query.smmrytoken+'&SM_LENGTH=1&SM_URL='+link.href, function(res){
+                                var body = '';
 
-                          var keysArray3 = Object.keys(link);
-                          for(var k = 0; k < keysArray3.length; ++k) {
-                              var key2 = keysArray3[k];
-                              var value2 = link[key2];
-                            console.log(key2, value2);
-                          }*/
-                        
-                    }
-                  }
-                });
+                                res.on('data', function(chunk){
+                                    body += chunk;
+                                });
+
+                                res.on('end', function(){
+                                    var smmryResponse = JSON.parse(body);
+                                    console.log(smmryResponse.sm_api_title);
+                                    console.log(smmryResponse.sm_api_content);
+                                    smmryResponse.sm_api_content;
+                                    /*var keysArray3 = Object.keys(smmryResponse);
+                                      for(var k = 0; k < keysArray3.length; ++k) {
+                                          var key2 = keysArray3[k];
+                                          var value2 = smmryResponse[key2];
+                                        console.log(key2, value2);
+                                      }*/
+                                });
+                            });
+
+
+                            break;
+                            /* console.log(link.title + ' - ' + link.href)
+                            console.log(link.description + "\n")
+
+                              var keysArray3 = Object.keys(link);
+                              for(var k = 0; k < keysArray3.length; ++k) {
+                                  var key2 = keysArray3[k];
+                                  var value2 = link[key2];
+                                console.log(key2, value2);
+                              }*/
+
+                        }
+                      }
+                    })(err,res,value[titleKey]));
+                }
             }
             
         });
