@@ -63,7 +63,7 @@ app.get("/cp", function (request, response) {
                 var domainKey = keysArray2[0];
                 var titleKey = keysArray2[3];
                // console.log("Domain " + value[domainKey]);
-                console.log("Title " i + " "+ value[titleKey]);
+                console.log("Title " + i + " "+ value[titleKey]);
                 
                 if(value[domainKey].indexOf("reddit") !== -1) { // filter Reddit posts
                     title.push(value[titleKey]);
