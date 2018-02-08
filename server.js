@@ -65,10 +65,12 @@ app.get("/cp", function (request, response) {
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + i + " "+ value[titleKey]);
                 
-                if(value[domainKey].indexOf("reddit") !== -1) { // filter Reddit posts
+                if(value[domainKey].indexOf("reddit") == -1) { // filter Reddit posts
                     title.push(value[titleKey]);
                     google.resultsPerPage = 5;
                     google.timeSpan = 'd'; // information indexed in the past day 
+                    
+                    google.titles = title;
 
                     google(value[domainKey] + ' ' + value[titleKey], (function (err, res, title){
                       if (err) console.error(err)
