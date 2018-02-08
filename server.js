@@ -3,7 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 const translate = require('google-translate-api');
 var steem = require('steem');
-var http = require('http');
+var http = require('https');
 
 var port = process.env.PORT || 5000;
 
@@ -35,7 +35,7 @@ app.get("/tl", function (request, response) {
 app.get("/cp", function (request, response) {
     var url = 'http://www.cryptopanic.com/api/posts/?auth_token=31dc4817cba448911e694b5c2437c5215c6fbaaf&filter=bullish';
 
-    http.get(url, function(res){
+    https.get(url, function(res){
         var body = '';
 
         res.on('data', function(chunk){
