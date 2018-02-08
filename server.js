@@ -48,16 +48,23 @@ app.get("/cp", function (request, response) {
             
             
             var keysArray = Object.keys(cpResponse.results);
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 1; i++) {
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
-               console.log(key, value);
+               //console.log(key, value);
+                
+                var keysArray2 = Object.keys(value);
+                var domainKey = keysArray2[0];
+                var titleKey = keysArray2[3];
+                console.log("Domain " + value[domainKey]);
+                console.log("Title " + value[titleKey]);
             }
             
         });
     }).on('error', function(e){
           console.log("Got an error: ", e);
     });
+    response.end("Done");
 });
 
 app.listen(port);
