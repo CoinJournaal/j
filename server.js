@@ -65,7 +65,7 @@ app.get("/cp", function (request, response) {
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + i + " "+ value[titleKey]);
                 
-                if(value[domainKey].indexOf("reddit") == -1 && value[domainKey].indexOf("twitter")) { // filter Reddit/Twitter posts
+                if(value[domainKey].indexOf("reddit") == -1 && value[domainKey].indexOf("twitter") == -1) { // filter Reddit/Twitter posts
                     console.log("niet gefilterd");
                     title.push(value[titleKey]);
                     google.resultsPerPage = 5;
