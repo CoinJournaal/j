@@ -80,7 +80,7 @@ app.get("/cp", function (request, response) {
                         if(link.title.indexOf("News for") !== 0) { // filter News for items without links
                             console.log(" ");
                             //console.log("Title " + value[titleKey]);
-                            console.log("HREF " + link.href);
+                            console.log("Google HREF " + link.href);
                             //console.log("Link " + link.link);
                             
                             http.number = google.number;                            
@@ -96,9 +96,9 @@ app.get("/cp", function (request, response) {
 
                                 res.on('end', function(){
                                     var smmryResponse = JSON.parse(body);
-                                    console.log(title[res.number]);
-                                    console.log(smmryResponse.sm_api_title);
-                                    console.log(smmryResponse.sm_api_content);
+                                    console.log("Doorgeef Title " + title[res.number]);
+                                    console.log("Smmry Title " + smmryResponse.sm_api_title);
+                                    console.log("Smmry Content " + smmryResponse.sm_api_content);
                                
                                     /*var keysArray3 = Object.keys(smmryResponse);
                                       for(var k = 0; k < keysArray3.length; ++k) {
