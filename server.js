@@ -50,7 +50,7 @@ app.get("/cp", function (request, response) {
             
             
             var keysArray = Object.keys(cpResponse.results);
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 3; i++) {
                 console.log(" ");
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
@@ -60,7 +60,7 @@ app.get("/cp", function (request, response) {
                 var domainKey = keysArray2[0];
                 var titleKey = keysArray2[3];
                // console.log("Domain " + value[domainKey]);
-               // console.log("Title " + value[titleKey]);
+                console.log("Title " + value[titleKey]);
                 
                 google.resultsPerPage = 5;
                 google.timeSpan = 'd'; // information indexed in the past day 
@@ -72,7 +72,7 @@ app.get("/cp", function (request, response) {
                     var link = res.links[j];
                     if(link.title.indexOf("News for") !== 0) {
                         console.log(" ");
-                        console.log("Title " + value[titleKey]);
+                        //console.log("Title " + value[titleKey]);
                         console.log("HREF " + link.href);
                         //console.log("Link " + link.link);
                         
@@ -85,13 +85,14 @@ app.get("/cp", function (request, response) {
 
                             res.on('end', function(){
                                 var smmryResponse = JSON.parse(body);
-                                console.log(smmryResponse);
-                                var keysArray3 = Object.keys(smmryResponse);
+                                console.log(smmryResponse.sm_api_title);
+                                console.log(smmryResponse.sm_api_content);
+                                /*var keysArray3 = Object.keys(smmryResponse);
                                   for(var k = 0; k < keysArray3.length; ++k) {
                                       var key2 = keysArray3[k];
                                       var value2 = smmryResponse[key2];
                                     console.log(key2, value2);
-                                  }
+                                  }*/
                             });
                         });
                             
