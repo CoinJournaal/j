@@ -61,7 +61,7 @@ app.get("/cp", function (request, response) {
                 console.log("Domain " + value[domainKey]);
                 console.log("Title " + value[titleKey]);
                 
-                google.resultsPerPage = 1;
+                google.resultsPerPage = 5;
                 google.timeSpan = 'd'; // information indexed in the past day 
                 
                 google(value[domainKey] + ' ' + value[titleKey], function (err, res){
@@ -69,20 +69,22 @@ app.get("/cp", function (request, response) {
 
                   for (var j = 0; j < res.links.length; ++j) {
                     var link = res.links[j];
-                    console.log(" ");
-                    console.log("Title " + link.title);
-                    console.log("HREF " + link.href);
-                    console.log("Link " + link.link);
-                    
-                    /* console.log(link.title + ' - ' + link.href)
-                    console.log(link.description + "\n")
-                      
-                      var keysArray3 = Object.keys(link);
-                      for(var k = 0; k < keysArray3.length; ++k) {
-                          var key2 = keysArray3[k];
-                          var value2 = link[key2];
-                        console.log(key2, value2);
-                      }*/
+                    if(link.title.indexOf("News for") !== 0) {
+                        console.log(" ");
+                        console.log("Title " + link.title);
+                        console.log("HREF " + link.href);
+                        console.log("Link " + link.link);
+                        break;
+                        /* console.log(link.title + ' - ' + link.href)
+                        console.log(link.description + "\n")
+
+                          var keysArray3 = Object.keys(link);
+                          for(var k = 0; k < keysArray3.length; ++k) {
+                              var key2 = keysArray3[k];
+                              var value2 = link[key2];
+                            console.log(key2, value2);
+                          }*/
+                    }
                   }
                 });
             }
