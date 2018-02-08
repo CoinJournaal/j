@@ -1,4 +1,4 @@
-// TODO write to file
+// TODO filtering, write to file
 
 var express = require("express"),
     app = express();
@@ -66,7 +66,7 @@ app.get("/cp", function (request, response) {
                 console.log("Title " + i + " "+ value[titleKey]);
                 
                 if(value[domainKey].indexOf("reddit") == -1 && value[domainKey].indexOf("twitter") == -1) { // filter Reddit/Twitter posts
-                    console.log("niet gefilterd");
+                    console.log("niet gefilterd " + value[domainKey] );
                     title.push(value[titleKey]);
                     google.resultsPerPage = 5;
                     google.timeSpan = 'd'; // information indexed in the past day 
