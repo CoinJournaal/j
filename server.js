@@ -4,6 +4,7 @@ var fs = require("fs");
 const translate = require('google-translate-api');
 var steem = require('steem');
 var https = require('https');
+var http = require('http');
 var google = require('google');
 
 var port = process.env.PORT || 5000;
@@ -75,7 +76,7 @@ app.get("/cp", function (request, response) {
                         console.log("HREF " + link.href);
                         //console.log("Link " + link.link);
                         
-                        https.get('http://api.smmry.com/&SM_API_KEY=0431DECC57&SM_LENGTH=1&SM_URL='+link.href, function(res){
+                        http.get('http://api.smmry.com/&SM_API_KEY=0431DECC57&SM_LENGTH=1&SM_URL='+link.href, function(res){
                             var body = '';
 
                             res.on('data', function(chunk){
