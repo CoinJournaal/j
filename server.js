@@ -49,7 +49,8 @@ app.get("/cp", function (request, response) {
             
             
             var keysArray = Object.keys(cpResponse.results);
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < 5; i++) {
+                console.log(" ");
                var key = keysArray[i]; // here is "name" of object property
                var value = cpResponse.results[key]; // here get value "by name" as it expected with objects
                //console.log(key, value);
@@ -67,7 +68,10 @@ app.get("/cp", function (request, response) {
 
                   for (var j = 0; j < res.links.length; ++j) {
                     var link = res.links[j];
-                    console.log(link.title + ' - ' + link.href)
+                    console.log("HREF " + link.href);
+                    console.log("Link " + link.link);
+                    
+                    /* console.log(link.title + ' - ' + link.href)
                     console.log(link.description + "\n")
                       
                       var keysArray3 = Object.keys(link);
@@ -75,7 +79,7 @@ app.get("/cp", function (request, response) {
                           var key2 = keysArray3[k];
                           var value2 = link[key2];
                         console.log(key2, value2);
-                      }
+                      }*/
                   }
                 });
             }
