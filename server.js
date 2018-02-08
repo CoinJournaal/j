@@ -60,8 +60,8 @@ app.get("/cp", function (request, response) {
                console.log(key, value);
                 
                 var keysArray2 = Object.keys(value);
-                var domainKey = keysArray2[Object.keys('domain')];
-                var titleKey = keysArray2[Object.keys('title')];
+                var domainKey = keysArray2['domain'];
+                var titleKey = keysArray2['title'];
                // console.log("Domain " + value[domainKey]);
                 console.log("Title " + i + " "+ value[titleKey]);
                 
