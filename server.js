@@ -65,10 +65,17 @@ app.get("/cp", function (request, response) {
                 google(value[domainKey] + ' ' + value[titleKey], function (err, res){
                   if (err) console.error(err)
 
-                  for (var i = 0; i < res.links.length; ++i) {
-                    var link = res.links[i];
+                  for (var j = 0; j < res.links.length; ++j) {
+                    var link = res.links[j];
                     console.log(link.title + ' - ' + link.href)
                     console.log(link.description + "\n")
+                      
+                      var keysArray3 = Object.keys(link);
+                      for(var k = 0; k < keysArray3.length; ++k) {
+                          var key2 = keysArray3[k];
+                          var value2 = link[key2];
+                        console.log(key2, value2);
+                      }
                   }
                 });
             }
