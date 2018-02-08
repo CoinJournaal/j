@@ -45,6 +45,15 @@ app.get("/cp", function (request, response) {
         res.on('end', function(){
             var cpResponse = JSON.parse(body);
             console.log("Got a response: ", cpResponse.count);
+            
+            
+            var keysArray = Object.keys(cpResponse);
+            for (var i = 0; i < 5; i++) {
+               var key = keysArray[i]; // here is "name" of object property
+               var value = cpResponse[key]; // here get value "by name" as it expected with objects
+               console.log(key, value);
+            }
+            
         });
     }).on('error', function(e){
           console.log("Got an error: ", e);
