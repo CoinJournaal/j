@@ -61,13 +61,16 @@ app.get("/cp", function (request, response) {
                 console.log("Domain " + value[domainKey]);
                 console.log("Title " + value[titleKey]);
                 
-                google.resultsPerPage = 1
+                google.resultsPerPage = 1;
+                google.timeSpan = 'd'; // information indexed in the past day 
                 
                 google(value[domainKey] + ' ' + value[titleKey], function (err, res){
                   if (err) console.error(err)
 
                   for (var j = 0; j < res.links.length; ++j) {
                     var link = res.links[j];
+                    console.log(" ");
+                    console.log("Title " + link.title);
                     console.log("HREF " + link.href);
                     console.log("Link " + link.link);
                     
