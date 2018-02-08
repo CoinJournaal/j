@@ -66,6 +66,7 @@ app.get("/cp", function (request, response) {
                 console.log("Title " + i + " "+ value[titleKey]);
                 
                 if(value[domainKey].indexOf("reddit") == -1) { // filter Reddit posts
+                    console.log("niet gefilterd");
                     title.push(value[titleKey]);
                     google.resultsPerPage = 5;
                     google.timeSpan = 'd'; // information indexed in the past day 
@@ -78,7 +79,7 @@ app.get("/cp", function (request, response) {
                       for (var j = 0; j < res.links.length; ++j) {
                         var link = res.links[j];
                         if(link.title.indexOf("News for") !== 0) { // filter News for items without links
-                            console.log(" ");
+                            console.log("");
                             //console.log("Title " + value[titleKey]);
                             console.log("Google HREF " + link.href);
                             //console.log("Link " + link.link);
@@ -96,9 +97,15 @@ app.get("/cp", function (request, response) {
 
                                 res.on('end', function(){
                                     var smmryResponse = JSON.parse(body);
-                                    console.log("Doorgeef Title " + title[res.number]);
-                                    console.log("Smmry Title " + smmryResponse.sm_api_title);
-                                    console.log("Smmry Content " + smmryResponse.sm_api_content);
+                                    // check undefined
+                                    if (typeof smmryResponse.sm_api_title != 'undefined') {
+                                        console.log("Doorgeef Title " + title[res.number]);
+                                        console.log("Smmry Title " + smmryResponse.sm_api_title);
+                                        console.log("Smmry Content " + smmryResponse.sm_api_content);
+                                    }
+                                    else {
+                                        console.log("smmry undefined");
+                                    }
                                
                                     /*var keysArray3 = Object.keys(smmryResponse);
                                       for(var k = 0; k < keysArray3.length; ++k) {
@@ -108,8 +115,7 @@ app.get("/cp", function (request, response) {
                                       }*/
                                 });
                             });
-
-
+                            
                             break;
                             /* console.log(link.title + ' - ' + link.href)
                             console.log(link.description + "\n")
